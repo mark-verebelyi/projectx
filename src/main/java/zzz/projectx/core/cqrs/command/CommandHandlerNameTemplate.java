@@ -1,6 +1,8 @@
-package zzz.projectx.core.cqrs;
+package zzz.projectx.core.cqrs.command;
 
-final class CommandHandlerNameTemplate extends AbstractComponentNameTemplate {
+import zzz.projectx.core.AbstractComponentNameTemplate;
+
+class CommandHandlerNameTemplate extends AbstractComponentNameTemplate {
 
 	private static final String NAME_PATTERN = "commandHandler-%s";
 	private static final String REQUEST_CHANNEL_PATTERN = "commandHandler-requestChannel-%s";

@@ -1,4 +1,4 @@
-package zzz.projectx.core.cqrs;
+package zzz.projectx.core.cqrs.command;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

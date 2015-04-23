@@ -1,11 +1,11 @@
-package zzz.projectx.core.cqrs;
+package zzz.projectx.core;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 
-abstract class AbstractComponentNameTemplate implements ComponentNameTemplate {
+public abstract class AbstractComponentNameTemplate implements ComponentNameTemplate {
 
 	private final String namePattern;
 	private final String requestChannelPattern;
@@ -23,19 +23,19 @@ abstract class AbstractComponentNameTemplate implements ComponentNameTemplate {
 	@Override
 	public String nameOfComponent(final String beanClassName) {
 		checkArgument(isNotBlank(beanClassName), "beanClassName can not be blank");
-		return String.format(this.namePattern, beanClassName);
+		return String.format(namePattern, beanClassName);
 	}
 
 	@Override
 	public String nameOfRequestChannelForComponent(final String beanClassName) {
 		checkArgument(isNotBlank(beanClassName), "beanClassName can not be blank");
-		return String.format(this.requestChannelPattern, beanClassName);
+		return String.format(requestChannelPattern, beanClassName);
 	}
 
 	@Override
 	public String nameOfServiceActivatorForComponent(final String beanClassName) {
 		checkArgument(isNotBlank(beanClassName), "beanClassName can not be blank");
-		return String.format(this.serviceActivatorPattern, beanClassName);
+		return String.format(serviceActivatorPattern, beanClassName);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package zzz.projectx.core.cqrs;
+package zzz.projectx.core;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -16,15 +16,15 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.handler.ServiceActivatingHandler;
 
-public abstract class ComponentRegistrar implements ImportBeanDefinitionRegistrar {
+public abstract class AbstractComponentRegistrar implements ImportBeanDefinitionRegistrar {
 
 	private static final String PACKAGE_TO_SCAN_ANNOTATION_ATTRIBUTE = "packageToScan";
 
 	private final ComponentNameTemplate componentNameTemplate;
 
-	protected ComponentRegistrar(final ComponentNameTemplate componentNameTemplate) {
-		this.componentNameTemplate = componentNameTemplate;
+	protected AbstractComponentRegistrar(final ComponentNameTemplate componentNameTemplate) {
 		checkArgument(componentNameTemplate != null, "componentNameTemplate can not be null");
+		this.componentNameTemplate = componentNameTemplate;
 	}
 
 	@Override
@@ -38,18 +38,18 @@ public abstract class ComponentRegistrar implements ImportBeanDefinitionRegistra
 	}
 
 	private void registerServiceActivator(final BeanDefinitionRegistry registry, final BeanDefinition component) {
-		final String name = this.componentNameTemplate.nameOfServiceActivatorForComponent(component);
+		final String name = componentNameTemplate.nameOfServiceActivatorForComponent(component);
 		registry.registerBeanDefinition(name, createServiceActivator(component));
 	}
 
 	private BeanDefinition createServiceActivator(final BeanDefinition component) {
 		final BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(ServiceActivatingHandler.class);
-		builder.addConstructorArgReference(this.componentNameTemplate.nameOfComponent(component));
+		builder.addConstructorArgReference(componentNameTemplate.nameOfComponent(component));
 		return builder.getBeanDefinition();
 	}
 
 	private void registerRequestChannel(final BeanDefinitionRegistry registry, final BeanDefinition component) {
-		final String name = this.componentNameTemplate.nameOfRequestChannelForComponent(component);
+		final String name = componentNameTemplate.nameOfRequestChannelForComponent(component);
 		registry.registerBeanDefinition(name, createRequestChannel());
 	}
 
@@ -59,7 +59,7 @@ public abstract class ComponentRegistrar implements ImportBeanDefinitionRegistra
 	}
 
 	private void registerComponent(final BeanDefinitionRegistry registry, final BeanDefinition component) {
-		final String name = this.componentNameTemplate.nameOfComponent(component);
+		final String name = componentNameTemplate.nameOfComponent(component);
 		registry.registerBeanDefinition(name, component);
 	}
 

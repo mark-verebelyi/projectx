@@ -1,13 +1,14 @@
-package zzz.projectx.core.cqrs;
+package zzz.projectx.core.cqrs.command;
 
 import java.lang.annotation.Annotation;
 
 import org.springframework.context.annotation.Configuration;
 
 import zzz.projectx.api.cqrs.command.handler.CommandHandler;
+import zzz.projectx.core.AbstractComponentRegistrar;
 
 @Configuration
-public class CommandHandlerRegistrar extends ComponentRegistrar {
+class CommandHandlerRegistrar extends AbstractComponentRegistrar {
 
 	protected CommandHandlerRegistrar() {
 		super(new CommandHandlerNameTemplate());

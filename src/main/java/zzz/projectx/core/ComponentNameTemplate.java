@@ -1,8 +1,8 @@
-package zzz.projectx.core.cqrs;
+package zzz.projectx.core;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 
-interface ComponentNameTemplate {
+public interface ComponentNameTemplate {
 
 	String nameOfComponent(BeanDefinition beanDefinition);
 
