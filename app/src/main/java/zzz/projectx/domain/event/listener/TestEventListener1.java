@@ -7,7 +7,7 @@ public class TestEventListener1 implements EventListener<TestEvent1> {
 
 	@Override
 	public void onEvent(final TestEvent1 event) {
-		System.out.println("TestEventListener1.onEvent()");
+		System.out.println(Thread.currentThread() + " - TestEventListener1.onEvent()");
 	}
 
 	@Override
